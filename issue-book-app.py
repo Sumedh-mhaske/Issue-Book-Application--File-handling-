@@ -31,7 +31,19 @@ def return_book():
 
 # Function to view not returned books
 def view_not_ret():
-    pass
+    fobj = open('all_issued.txt', 'r')
+    fdata = fobj.readlines()
+    fobj.close()
+
+    for i in fdata:
+        ls = i.split(',')
+        if ls[4] == 'NO\n':
+           print('Book number :', ls[0]) 
+           print('Student enrollment number :', ls[1])
+           print('Book issued date :', ls[2])
+           print('Return date :', ls[3])
+           print('Return status :', ls[4])
+        
 
 # Function to search student 
 def search_stud():
