@@ -14,7 +14,16 @@ full_date = str(day) + "/" + str(mon) + "/" + str(year)
 
 # Function for issuing book
 def issue_book():
-    pass
+    book_num = input('Enter book number : ')
+    stud_enr = input('Enter student enrollment number : ')
+    ret_status = 'NO'
+    ret_date = 'NA'
+
+    fobj = open('all_issued.txt', 'a')
+    fobj.write(book_num + ',' + stud_enr + ',' + full_date + ',' + ret_date + ',' + ret_status + '\n')
+    fobj.close()
+
+    print('Book issued...')
 
 # Function for book returning
 def return_book():
