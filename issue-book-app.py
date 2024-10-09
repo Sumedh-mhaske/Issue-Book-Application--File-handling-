@@ -54,10 +54,16 @@ def issued_file_in_r():
 
     return fdata
 
+def book_num_input():
+    return input('Enter book number : ')
+
+def stud_enr_input():
+    return input('Enter student enrollment number : ')
+
 # Function for issuing book
 def issue_book():
-    book_num = input('Enter book number : ')
-    stud_enr = input('Enter student enrollment number : ')
+    book_num = book_num_input()
+    stud_enr = stud_enr_input()
     ret_status = 'NO'
     ret_date = 'NA'
 
@@ -88,7 +94,7 @@ def issue_book():
 
 # Function for book returning
 def return_book():
-    book_num = input('Enter book number : ')
+    book_num = book_num_input()
 
     fdata = issued_file_in_r()
     found = False
@@ -121,7 +127,7 @@ def view_not_ret():
         
 # Function to search student 
 def search_stud():
-    enr = input("Enter student's enrollment number : ")
+    enr = stud_enr_input()
 
     fdata = stud_file_in_r()
     found = False 
@@ -140,7 +146,7 @@ def search_stud():
 
 # Function to search book 
 def search_book():
-    book_num = input('Enter book number : ')
+    book_num = book_num_input()
 
     fdata = book_file_in_r()
     found = False
@@ -157,7 +163,7 @@ def search_book():
 
 # Function to see the history of student 
 def stud_history():
-    enr = input('Enter student enrollment number : ')
+    enr = stud_enr_input()
 
     fdata = issued_file_in_r()
 
@@ -180,7 +186,7 @@ def book_history():
 
 # Function to add new book
 def add_new_book():
-    book_num = input('Enter book number : ')
+    book_num = book_num_input()
     book_title = input('Enter book title : ')
     book_author = input('Enter book author name : ')
     book_publication = input('Enter book publications name : ')
@@ -207,7 +213,7 @@ def add_new_book():
 
 # Function to add new student 
 def add_new_stud():
-    s_enr = input('Enter student enrollment number : ')
+    s_enr = stud_enr_input()
     s_name = input('Enter student name : ')
     s_class = input('Enter student class : ')
     s_email = input('Enter student email : ')
