@@ -30,8 +30,8 @@ year = date.year
 full_date = str(day) + "/" + str(mon) + "/" + str(year)
 
 # --------------------------------------------------------- #
-
-split = lambda x: x.split(',')
+s = ','
+split = lambda x: x.split(s)
 
 def book_file_in_r():
     fobj = open('all_book.txt', 'r')
@@ -72,8 +72,20 @@ def issue_book():
         if ls[0] == book_num:
             book_found = True
             break
-    if book_found == False: print('Invalid Book Number')
 
+    book_available = False
+    if book_found == False: print('Invalid Book Number')
+    elif book_found == True:
+        issued_data = issued_file_in_r()
+        for i in issued_data:
+            ls = split(i)
+            if ls[0] == book_num and ls[4] == 'NO\n':
+                print("Book is not available")
+                break
+            elif ls[0] == book_num and ls[4] == 'YES\n':
+                book_available = True
+            
+            
     stud_found = False
     stud_data = stud_file_in_r()
     for i in stud_data:
@@ -83,7 +95,7 @@ def issue_book():
             break
     if stud_found == False: print('Invalid student enrollment number')
 
-    if book_found == True and stud_found == True:
+    if book_available == True and stud_found == True:
         fobj = open('all_issued.txt', 'a')
         fobj.write(book_num + s + stud_enr + s + full_date + s + ret_date + s + ret_status + '\n')
         fobj.close()
@@ -176,9 +188,9 @@ def stud_history():
         ls = split(i)
         if ls[1] == enr:
             found = True
-            print('Student issued book :', ls[0])
+            print('\nStudent issued book :', ls[0])
             print('Issued on :', ls[2]) 
-            print('Booked returned? :', ls[4])
+            print('Book returned? :', ls[4], end='')
             if ls[4] == 'YES\n':
                 print('Returned date :', ls[3])
     
@@ -194,9 +206,9 @@ def book_history():
         ls = split(i)
         if ls[0] == book_num:
             found = True
-            print('Student issued this book :', ls[1])
+            print('\nStudent issued this book :', ls[1])
             print('Issued on :', ls[2]) 
-            print('Booked returned? :', ls[4])
+            print('Book returned? :', ls[4], end='')
             if ls[4] == 'YES\n':
                 print('Returned date :', ls[3])
 
@@ -261,7 +273,8 @@ def add_new_stud():
 
 # List of options
 def operations():
-    print('\nSelect operation')
+    input()
+    print('Select operation')
     print('1 - Issue Book')
     print('2 - Return Book')
     print('3 - View Not Returned Book')
