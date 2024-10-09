@@ -97,18 +97,24 @@ def return_book():
     fdata = issued_file_in_r()
     found = False
     ind = 0
+    newstr = None
     for i in fdata:
         ls = split(i)
-        if ls[0] == book_num:
+        if ls[0] == book_num and ls[4] == 'NO\n':
             ls[3] = full_date
-            ls[4] = 'YES'
+            ls[4] = 'YES\n'
+            newstr = ','.join(ls)
             found = True
-            fdata[ind] = ls
+            fdata[ind] = newstr
             break
         else: ind += 1
         
     if found == False: print('Invalid book number')
-    elif found == True: print('Book returned succesfully')
+    elif found == True:
+        fobj = open('all_issued.txt', 'w')
+        fobj.writelines(fdata)
+        fobj.close()
+        print('Book Returned...')
 
 # Function to view not returned books
 def view_not_ret():
