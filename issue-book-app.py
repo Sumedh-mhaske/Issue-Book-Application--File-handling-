@@ -14,7 +14,7 @@ We need 3 files for this application
     stud_enr, stud_name, stud_class, stud_email, stud_mob
 
 3. all_issued.txt :-
-    book_num, stud_enr, iss_date, ret)date, ret_status
+    book_num, stud_enr, iss_date, ret_date, ret_status
 
 '''
 # ====================================================================
@@ -85,8 +85,6 @@ def issue_book():
         fobj.close()
         print('Book issued...')
 
-        # stud_file = open('all_stud.txt', 'a')
-        # stud_file.write
 
 # Function for book returning
 def return_book():
@@ -121,7 +119,6 @@ def view_not_ret():
            print('Return date :', ls[3])
            print('Return status :', ls[4])
         
-
 # Function to search student 
 def search_stud():
     enr = input("Enter student's enrollment number : ")
@@ -160,17 +157,22 @@ def search_book():
 
 # Function to see the history of student 
 def stud_history():
-    # enr = input("Enter the student's enrollment number : ")
+    enr = input('Enter student enrollment number : ')
 
-    # fobj = open('all_stud.txt', 'r')
-    # fdata = fobj.readlines()
-    # fobj.close()
+    fdata = issued_file_in_r()
 
-    # for i in fdata:
-    #     ls = i.split(s)
-    #     if ls[0] == enr:
-    pass
-
+    found = False
+    for i in fdata:
+        ls = i.split(s)
+        if ls[1] == enr:
+            found = True
+            print('Student issued book :', ls[0])
+            print('Issued on :', ls[2]) 
+            print('Booked returned? :', ls[4])
+            if ls[4] == 'YES\n':
+                print('Returned date :', ls[3])
+    
+    if found == False: print('Invalid enrollment number')
 
 # Function to see book history
 def book_history():
