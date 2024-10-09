@@ -31,7 +31,7 @@ full_date = str(day) + "/" + str(mon) + "/" + str(year)
 
 # --------------------------------------------------------- #
 
-s = ','
+split = lambda x: x.split(',')
 
 def book_file_in_r():
     fobj = open('all_book.txt', 'r')
@@ -54,11 +54,9 @@ def issued_file_in_r():
 
     return fdata
 
-def book_num_input():
-    return input('Enter book number : ')
+book_num_input = lambda : input('Enter book number : ')
 
-def stud_enr_input():
-    return input('Enter student enrollment number : ')
+stud_enr_input = lambda : input('Enter student enrollment number : ')
 
 # Function for issuing book
 def issue_book():
@@ -70,7 +68,7 @@ def issue_book():
     book_found = False
     book_data = book_file_in_r()
     for i in book_data:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == book_num:
             book_found = True
             break
@@ -79,7 +77,7 @@ def issue_book():
     stud_found = False
     stud_data = stud_file_in_r()
     for i in stud_data:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == stud_enr:
             stud_found = True
             break
@@ -100,7 +98,7 @@ def return_book():
     found = False
     ind = 0
     for i in fdata:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == book_num:
             ls[3] = full_date
             ls[4] = 'YES'
@@ -117,7 +115,7 @@ def view_not_ret():
     fdata = issued_file_in_r()
 
     for i in fdata:
-        ls = i.split(s)
+        ls = split(i)
         if ls[4] == 'NO\n':
            print('Book number :', ls[0]) 
            print('Student enrollment number :', ls[1])
@@ -132,7 +130,7 @@ def search_stud():
     fdata = stud_file_in_r()
     found = False 
     for i in fdata:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == enr:
             print('Student name :', ls[1])
             print('Student class :', ls[2])
@@ -151,7 +149,7 @@ def search_book():
     fdata = book_file_in_r()
     found = False
     for i in fdata:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == book_num:
             print('Book Title :', ls[1])
             print('Book Author Name :', ls[2])
@@ -169,7 +167,7 @@ def stud_history():
 
     found = False
     for i in fdata:
-        ls = i.split(s)
+        ls = split(i)
         if ls[1] == enr:
             found = True
             print('Student issued book :', ls[0])
@@ -182,7 +180,21 @@ def stud_history():
 
 # Function to see book history
 def book_history():
-    pass
+    book_num = book_num_input()
+    fdata = issued_file_in_r()
+
+    found = False
+    for i in fdata:
+        ls = split(i)
+        if ls[0] == book_num:
+            found = True
+            print('Student issued this book :', ls[1])
+            print('Issued on :', ls[2]) 
+            print('Booked returned? :', ls[4])
+            if ls[4] == 'YES\n':
+                print('Returned date :', ls[3])
+
+    if found == False: print('Invalid book number')
 
 # Function to add new book
 def add_new_book():
@@ -197,7 +209,7 @@ def add_new_book():
     book_data = book_file_in_r()
     book_found = False
     for i in book_data:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == book_num:
             book_found = True
             break
@@ -228,7 +240,7 @@ def add_new_stud():
     
     stud_found = False
     for i in stud_data:
-        ls = i.split(s)
+        ls = split(i)
         if ls[0] == s_enr:
             stud_found = True
             break
